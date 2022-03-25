@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Gerege_Logo.png" />
+    <None Remove="gerege_partners.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Gerege_Logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Gerege.Framework.Control" Version="5.0.0" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GeregeSampleApp\GeregeSampleApp.csproj" />
+    <ProjectReference Include="..\GeregeSampleModule\GeregeSampleModule.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ClientLogin.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
+</Project>

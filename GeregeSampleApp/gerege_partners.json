@@ -1,0 +1,19 @@
+﻿{
+  "partners": [
+    {
+      "name": "Улсын Бүртгэлийн Ерөнхий Газар",
+      "logo": "ubeg.png",
+      "href": "https://burtgel.gov.mn/"
+    },
+    {
+      "name": "Авто Тээврийн Үндэсний Төв",
+      "logo": "atut.png",
+      "href": "https://www.transdep.mn/"
+    },
+    {
+      "name": "Монгол Улсын Засгийн Газар",
+      "logo": "mongol.png",
+      "href": "https://mongolia.gov.mn/"
+    }
+  ]
+}

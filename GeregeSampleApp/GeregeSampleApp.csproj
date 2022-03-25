@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="gerege_partners.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="gerege_partners.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Gerege.Framework.HttpClient" Version="5.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gerege.Framework.Application\Gerege.Framework.Application.csproj" />
+  </ItemGroup>
+
+</Project>
