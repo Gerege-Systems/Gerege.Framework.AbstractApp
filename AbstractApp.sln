@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationExample", "ApplicationExample\ApplicationExample.csproj", "{A3BEEA5C-CBD6-4709-B9CB-56D71E3313E3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gerege.Framework.Application", "Gerege.Framework.Application\Gerege.Framework.Application.csproj", "{D216F879-2650-49F9-B7DC-38E83433A3EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gerege.Framework.AbstractApp", "Gerege.Framework.AbstractApp\Gerege.Framework.AbstractApp.csproj", "{D216F879-2650-49F9-B7DC-38E83433A3EA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D1F3109-F866-4A47-85F3-2702136C63ED}"
 	ProjectSection(SolutionItems) = preProject

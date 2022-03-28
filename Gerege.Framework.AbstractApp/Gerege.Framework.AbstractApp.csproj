@@ -6,11 +6,11 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>gerege-win.ico</ApplicationIcon>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>5.0.2</Version>
+    <Version>5.0.0</Version>
     <Authors>Гэрэгэ Системс ХХК</Authors>
-    <Description>Gerege Application Development Framework - Application library</Description>
+    <Description>Gerege Application Development Framework - Abstract Application library</Description>
     <Copyright>Gerege Systems LLC</Copyright>
-    <PackageProjectUrl>https://github.com/Gerege-Systems/Gerege.Framework.Application</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Gerege-Systems/Gerege.Framework.AbstractApp</PackageProjectUrl>
     <PackageIcon>gerege-icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>gerege;framework;application</PackageTags>

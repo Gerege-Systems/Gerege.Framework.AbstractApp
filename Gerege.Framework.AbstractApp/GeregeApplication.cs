@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace Gerege.Framework.Application
+namespace Gerege.Framework.AbstractApp
 {
     /// <author>
     /// codesaur - 2022.01.22
@@ -20,7 +20,7 @@ namespace Gerege.Framework.Application
     /// <summary>
     /// Гэрэгэ логикоор ажиллах програм хангамжын үндсэн суурь апп хийсвэр класс.
     /// </summary>
-    public abstract class GeregeApplication : System.Windows.Application
+    public abstract class GeregeApplication : Application
     {
         /// <summary>Апп процесс идэвхтэй ажиллаж буй хавтас зам.</summary>
         public string CurrentDirectory;

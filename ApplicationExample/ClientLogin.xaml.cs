@@ -3,8 +3,6 @@ using System.Threading;
 using System.Diagnostics;
 using System.Windows.Controls;
 
-using Gerege.Framework.Control;
-
 using GeregeSampleApp;
 
 namespace ApplicationExample
@@ -14,8 +12,6 @@ namespace ApplicationExample
     /// </summary>
     public partial class UserLogin : Page
     {
-        PleaseWait? Loading;
-
         /// <summary>Хэрэглэгч нэвтрэх</summary>
         public UserLogin()
         {
@@ -26,9 +22,6 @@ namespace ApplicationExample
         {
             string user = Username.Text;
             string pass = Password.Password;
-
-            Loading = new("");
-            Worker.Children.Add(Loading);
 
             LoginBtn.IsEnabled = false;
 
@@ -53,8 +46,6 @@ namespace ApplicationExample
                 Dispatcher.Invoke(() =>
                 {
                     errorTextBlock.Text = status;
-                    Worker.Children.Remove(Loading);
-
                     LoginBtn.IsEnabled = true;
                 });
             }

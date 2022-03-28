@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Windows;
 
-using Gerege.Framework.Application;
+using Gerege.Framework.AbstractApp;
 using Gerege.Framework.FileSystem;
 using Gerege.Framework.HttpClient;
 using Gerege.Framework.Logger;

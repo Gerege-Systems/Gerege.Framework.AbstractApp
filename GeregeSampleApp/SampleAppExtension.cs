@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Net.Http;
 
 #pragma warning disable IDE0060
@@ -43,7 +44,7 @@ namespace GeregeSampleApp
         /// </returns>
         public static SampleApp App(this object a)
         {
-            return System.Windows.Application.Current as SampleApp;
+            return Application.Current as SampleApp;
         }
 
         /// <summary>

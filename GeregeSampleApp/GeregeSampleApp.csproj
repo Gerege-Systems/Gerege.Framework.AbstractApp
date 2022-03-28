@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gerege.Framework.Application\Gerege.Framework.Application.csproj" />
+    <ProjectReference Include="..\Gerege.Framework.AbstractApp\Gerege.Framework.AbstractApp.csproj" />
   </ItemGroup>
 
 </Project>
