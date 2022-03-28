@@ -1,4 +1,4 @@
-# Gerege.Framework.Application
+# Gerege.Framework.AbstractApp
 
 Gerege Application Development Framework - Abstract Application library
 
