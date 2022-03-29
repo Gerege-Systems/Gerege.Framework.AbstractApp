@@ -1,6 +1,6 @@
 ## About
 
-Gerege Application Development Framework - Application library
+Gerege Application Development Framework - Abstract Application library
 
 ## How to Use
 
