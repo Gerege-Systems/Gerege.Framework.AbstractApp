@@ -64,10 +64,13 @@ namespace ApplicationExample
             try
             {
                 SampleApp MyApp = this.App();
-
-                Page partners = (Page)MyApp.LoadModule(
-                    MyApp.CurrentDirectory + "GeregeSampleModule.dll",
+                string dllName = "GeregeSampleModule.dll";
+                object? partners = MyApp.ModuleStart(
+                    MyApp.CurrentDirectory + dllName,
                     new { conclusion = "Loading module is easy and peasy" });
+
+                if (partners is not Page)
+                    throw new Exception(dllName + ": Module.Start функц нь Page буцаасангүй!");
 
                 MyApp.RaiseEvent("load-page", partners);
             }

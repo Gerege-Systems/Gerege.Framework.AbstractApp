@@ -1,5 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Windows;
+using System.Reflection;
+using System.Diagnostics;
 
 using Gerege.Framework.WPFApp;
 using Gerege.Framework.HttpClient;
@@ -64,6 +67,45 @@ namespace GeregeSampleApp
 
                 _ => null,
             };
+        }
+
+        /// <summary>
+        /// Гэрэгэ үйлчилгээний DLL ачаалж Module классын Start функцыг дуудсанаар үр дүнг авах.
+        /// </summary>
+        /// <param name="filePath">Module DLL файлын зам/нэр.</param>
+        /// <param name="param">Module.Start функцэд дамжуулах параметр.</param>
+        /// <returns>
+        /// Амжилттай үр дүн.
+        /// </returns>
+        public object? ModuleStart(string filePath, dynamic param)
+        {
+            if (string.IsNullOrEmpty(filePath)
+                    || !File.Exists(filePath))
+                throw new Exception(filePath + ": Модул зам олдсонгүй!");
+
+            string dllName = Path.GetFileName(filePath);
+
+            Assembly assembly = Assembly.LoadFrom(filePath);
+            Type? type = assembly.GetType("Module");
+            if (type == null) throw new Exception(dllName + ": Module class олдсонгүй!");
+
+            object? instanceOfMyType = Activator.CreateInstance(type);
+            if (instanceOfMyType == null) throw new Exception(dllName + ": Module обьект үүсгэж чадсангүй!");
+
+            MethodInfo? methodInfo = type.GetMethod("Start", new Type[] { typeof(object) });
+            if (methodInfo == null) throw new Exception(dllName + ": Module.Start функц олдоогүй эсвэл буруу тодорхойлсон байна!");
+
+            try
+            {
+                object[] parameters = new object[1] { param };
+                return methodInfo.Invoke(instanceOfMyType, parameters);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+
+                throw ex.InnerException ?? ex;
+            }
         }
 
         /// <summary>
