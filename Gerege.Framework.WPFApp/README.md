@@ -1,6 +1,6 @@
 ## About
 
-Gerege Application Development Framework - Abstract Application library
+Gerege Application Development Framework - Windows Presentation Foundation Application library
 
 ## How to Use
 

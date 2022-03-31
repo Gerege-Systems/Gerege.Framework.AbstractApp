@@ -16,12 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Gerege.Framework.HttpClient" Version="5.0.4" />
+    <PackageReference Include="Gerege.Framework.HttpClient" Version="5.0.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gerege.Framework.AbstractApp\Gerege.Framework.AbstractApp.csproj" />
+    <ProjectReference Include="..\Gerege.Framework.WPFApp\Gerege.Framework.WPFApp.csproj" />
   </ItemGroup>
 
 </Project>

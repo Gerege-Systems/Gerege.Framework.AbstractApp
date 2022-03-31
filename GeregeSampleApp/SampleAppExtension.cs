@@ -1,6 +1,8 @@
 ﻿using System;
-using System.Windows;
+using System.IO;
 using System.Net.Http;
+using System.Windows;
+using System.Windows.Media.Imaging;
 
 #pragma warning disable IDE0060
 #pragma warning disable CS8603
@@ -40,7 +42,7 @@ namespace GeregeSampleApp
         /// </summary>
         /// <param name="a">Өргөтгөлийг ашиглаж буй объект.</param>
         /// <returns>
-        /// GeregeApplication-аас удамшсан ачаалагдсан апп SampleApp объектыг буцаана.
+        /// GeregeWPFApp-аас удамшсан ачаалагдсан апп SampleApp объектыг буцаана.
         /// </returns>
         public static SampleApp App(this object a)
         {
@@ -114,6 +116,31 @@ namespace GeregeSampleApp
         public static T UserCacheRequest<T>(this object a, dynamic? payload = null, HttpMethod? method = null, string? requestUri = null)
         {
             return a.App().UserClient.CacheRequest<T>(payload, method, requestUri);
+        }
+
+        /// <summary>
+        /// Аппын хавтаснаас зургийн төрлийн файлаас мэдээлэл унших.
+        /// </summary>
+        /// <param name="a">Өргөтгөлийг ашиглаж буй объект.</param>
+        /// <param name="filePath">Файл зам нэр.</param>
+        /// <returns>
+        /// Амжилттай уншигдсан бол BitmapImage төрлийн утга бусад тохиолдолд null утга буцаана.
+        /// </returns>
+        public static BitmapImage? ReadBitmapImage(this object a, string filePath)
+        {
+            try
+            {
+                string completePath = a.App().CurrentDirectory + filePath;
+
+                if (!File.Exists(completePath))
+                    throw new FileNotFoundException(completePath + " гэсэн файл байхгүй л байна даа!");
+
+                return new BitmapImage(new Uri(completePath));
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

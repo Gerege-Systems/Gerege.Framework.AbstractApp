@@ -1,17 +1,15 @@
 ﻿using System.IO;
 using System.Windows;
 
-using Gerege.Framework.AbstractApp;
-using Gerege.Framework.FileSystem;
+using Gerege.Framework.WPFApp;
 using Gerege.Framework.HttpClient;
-using Gerege.Framework.Logger;
 
 namespace GeregeSampleApp
 {
     /// <summary>
-    /// GeregeApplication-аас удамшсан SampleApp апп объект.
+    /// GeregeWPFApp-аас удамшсан SampleApp апп объект.
     /// </summary>
-    public class SampleApp : GeregeApplication
+    public class SampleApp : GeregeWPFApp
     {
         /// <summary>
         /// Хэрэглэгчийн HTTP клиент обьект.
@@ -79,7 +77,7 @@ namespace GeregeSampleApp
         {
             try
             {
-                CacheFile tempCache = new(0, new { tmp = 0 });
+                GeregeCache tempCache = new(0, new { tmp = 0 });
                 if (string.IsNullOrEmpty(tempCache.FilePath)) return;
 
                 FileInfo cacheFI = new(tempCache.FilePath);

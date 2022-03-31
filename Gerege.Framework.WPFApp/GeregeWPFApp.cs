@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace Gerege.Framework.AbstractApp
+namespace Gerege.Framework.WPFApp
 {
     /// <author>
     /// codesaur - 2022.01.22
@@ -20,7 +20,7 @@ namespace Gerege.Framework.AbstractApp
     /// <summary>
     /// Гэрэгэ логикоор ажиллах програм хангамжын үндсэн суурь апп хийсвэр класс.
     /// </summary>
-    public abstract class GeregeApplication : Application
+    public abstract class GeregeWPFApp : Application
     {
         /// <summary>Апп процесс идэвхтэй ажиллаж буй хавтас зам.</summary>
         public string CurrentDirectory;
@@ -35,7 +35,7 @@ namespace Gerege.Framework.AbstractApp
         public event GeregeEventHandler? EventHandler;
 
         /// <summary>Гэрэгэ апп үүсгэгч.</summary>
-        public GeregeApplication()
+        public GeregeWPFApp()
         {
             // App идэвхитэй ажиллаж байгаа хавтас олоx
             DirectoryInfo? currentDir = null;
@@ -85,7 +85,7 @@ namespace Gerege.Framework.AbstractApp
         /// <summary>
         /// Гэрэгэ клиент апп нь Гэрэгэ хэрэглэгч эрхийн дагуу нэвтэрч ажиллах ерөнхий зохион байгуулалттай.
         /// <para>
-        /// Үүнд GeregeWindowsApp нь анх амжилттай ачаалагдах үедээ энэ хийсвэр функцыг дуудан
+        /// Үүнд GeregeWPFApp нь анх амжилттай ачаалагдах үедээ энэ хийсвэр функцыг дуудан
         /// HTTP клиент обьект болон лог бичих обьект гэх мэт шаардлагатай бүрэлдэхүүн хэсгээ үүсгэдэг байх ёстой.
         /// </para>
         /// <para>

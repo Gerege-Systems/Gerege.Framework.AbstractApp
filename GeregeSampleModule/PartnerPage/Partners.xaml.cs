@@ -11,8 +11,6 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-using Gerege.Framework.FileSystem;
-
 using GeregeSampleApp;
 
 namespace GeregeSampleModule.PartnerPage
@@ -93,7 +91,7 @@ namespace GeregeSampleModule.PartnerPage
                         };
                         border.MouseDown += MenuItemClick;
 
-                        BitmapImage? logoImg = Media.ReadBitmapImage(this.App().CurrentDirectory + "PartnerPage" + Path.DirectorySeparatorChar + partner.Logo);
+                        BitmapImage? logoImg = this.ReadBitmapImage("PartnerPage" + Path.DirectorySeparatorChar + partner.Logo);
                         if (logoImg != null)
                             border.Background = new ImageBrush { ImageSource = logoImg };
                         else
