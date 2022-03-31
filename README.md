@@ -1,4 +1,4 @@
-# Gerege.Framework.AbstractApp
+# Gerege.Framework.WPFApp
 
 Gerege Application Development Framework - Windows Desktop Application library
 
