@@ -24,7 +24,7 @@ namespace GeregeSampleApp
         {            
             try
             {
-                Thread.Sleep(2000); // Интернетээр хандаж буй мэт сэтгэгдэл төрүүлэх үүднээс 2 хором хүлээлгэе
+                Thread.Sleep(300); // Интернетээр хандаж буй мэт сэтгэгдэл төрүүлэх үүднээс хором хүлээлгэе
 
                 string? requestTarget = request.RequestUri?.ToString();
                 if (requestTarget != this.AppRaiseEvent("get-server-address"))
