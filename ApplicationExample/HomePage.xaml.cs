@@ -30,32 +30,32 @@ namespace ApplicationExample
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadModuleBtn.Visibility = Visibility.Hidden;
-
             new Thread(GetTitle).Start();
+
+            LoadModuleBtn.Visibility = Visibility.Hidden;
         }
 
         private void GetTitle()
         {
-            string title = "";
+            if (!CheckAccess())
+            {
+                Dispatcher.Invoke(() => GetTitle());
+                return;
+            }
+
             try
             {
-                Welcome t = this.UserCacheRequest<Welcome>();
-                title = t.Title;
+                Welcome t = this.UserRequest<Welcome>();
+                TitleBox.Text = t.Title;
             }
             catch (Exception ex)
             {
+                TitleBox.Text = ex.Message;
                 Debug.WriteLine("Welcome-ийг авах үед алдаа гарлаа -> " + ex.Message);
-                title = ex.Message;
             }
             finally
             {
-                Dispatcher.Invoke(() =>
-                {
-                    TitleBox.Text = title;
-
-                    LoadModuleBtn.Visibility = Visibility.Visible;
-                });
+                LoadModuleBtn.Visibility = Visibility.Visible;
             }
         }
 

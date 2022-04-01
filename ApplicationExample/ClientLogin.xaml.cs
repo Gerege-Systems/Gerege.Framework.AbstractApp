@@ -23,6 +23,8 @@ namespace ApplicationExample
             string user = Username.Text;
             string pass = Password.Password;
 
+            Username.IsEnabled = false;
+            Password.IsEnabled = false;
             LoginBtn.IsEnabled = false;
 
             new Thread(() => ProceedUserLogin(user, pass)).Start();
@@ -30,24 +32,27 @@ namespace ApplicationExample
 
         private void ProceedUserLogin(string username, string password)
         {
-            string? status = null;
+            if (!CheckAccess())
+            {
+                Dispatcher.Invoke(() => ProceedUserLogin(username, password));
+                return;
+            }
+
             try
             {
                 this.App().UserClient.Login(new { username, password });
-                status = "Login success!";
+                errorTextBlock.Text = "Login success!";
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                status = ex.Message;
+                errorTextBlock.Text = ex.Message;
             }
             finally
             {
-                Dispatcher.Invoke(() =>
-                {
-                    errorTextBlock.Text = status;
-                    LoginBtn.IsEnabled = true;
-                });
+                Username.IsEnabled = true;
+                Password.IsEnabled = true;
+                LoginBtn.IsEnabled = true;
             }
         }
     }
