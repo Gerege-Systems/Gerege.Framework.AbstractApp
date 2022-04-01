@@ -45,7 +45,7 @@ namespace ApplicationExample
 
             try
             {
-                Welcome t = this.UserRequest<Welcome>();
+                Welcome t = this.UserCacheRequest<Welcome>();
                 TitleBox.Text = t.Title;
             }
             catch (Exception ex)
