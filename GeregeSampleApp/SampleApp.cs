@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Reflection;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 using Gerege.Framework.WPFApp;
 using Gerege.Framework.HttpClient;
@@ -39,7 +40,7 @@ namespace GeregeSampleApp
             };
 
             // Хэрэглэгчийн клиентийг үүсгэж байна
-            UserClient = new(pipeline);
+            UserClient = new SampleUserClient(pipeline);
         }
 
         /// <summary>
@@ -53,20 +54,29 @@ namespace GeregeSampleApp
 
             // Апп процесс амжилттай ачаалсан тул өмнө нь Гэрэгэ HTTP клиентийн
             // хүсэлт боловсруулах үед үүссэн байж болох Cache хавтас байвал цэвэрлэе
-            ClearCacheFolder();
+            Task task = Task.Run(() =>
+            {
+                try
+                {
+                    ClearCacheFolder();
+                }
+                catch { }
+            });
+            task.Wait();
         }
 
         /// <summary>
         /// Gerege үзэгдэл хүлээн авагч.
         /// </summary>
-        public dynamic? BaseEventHandler(string @event, dynamic? param = null)
+        public dynamic BaseEventHandler(string @event, dynamic param = null)
         {
-            return @event switch
+            switch (@event)
             {
-                "get-server-address" => "http://mock-server/api",
-
-                _ => null,
-            };
+                case "get-server-address":
+                    return "http://mock-server/api";
+                default:
+                    return null;
+            }
         }
 
         /// <summary>
@@ -77,7 +87,7 @@ namespace GeregeSampleApp
         /// <returns>
         /// Амжилттай үр дүн.
         /// </returns>
-        public object? ModuleStart(string filePath, dynamic param)
+        public object ModuleStart(string filePath, dynamic param)
         {
             if (string.IsNullOrEmpty(filePath)
                     || !File.Exists(filePath))
@@ -86,14 +96,14 @@ namespace GeregeSampleApp
             string dllName = Path.GetFileName(filePath);
 
             Assembly assembly = Assembly.LoadFrom(filePath);
-            Type? type = assembly.GetType("Module");
-            if (type == null) throw new Exception(dllName + ": Module class олдсонгүй!");
+            Type type = assembly.GetType("Module");
+            if (type is null) throw new Exception(dllName + ": Module class олдсонгүй!");
 
-            object? instanceOfMyType = Activator.CreateInstance(type);
-            if (instanceOfMyType == null) throw new Exception(dllName + ": Module обьект үүсгэж чадсангүй!");
+            object instanceOfMyType = Activator.CreateInstance(type);
+            if (instanceOfMyType is null) throw new Exception(dllName + ": Module обьект үүсгэж чадсангүй!");
 
-            MethodInfo? methodInfo = type.GetMethod("Start", new Type[] { typeof(object) });
-            if (methodInfo == null) throw new Exception(dllName + ": Module.Start функц олдоогүй эсвэл буруу тодорхойлсон байна!");
+            MethodInfo methodInfo = type.GetMethod("Start", new Type[] { typeof(object) });
+            if (methodInfo is null) throw new Exception(dllName + ": Module.Start функц олдоогүй эсвэл буруу тодорхойлсон байна!");
 
             try
             {
@@ -117,27 +127,23 @@ namespace GeregeSampleApp
         /// </summary>
         private void ClearCacheFolder()
         {
-            try
+            var tempCache = new GeregeCache(0, new { tmp = 0 });
+            if (string.IsNullOrEmpty(tempCache.FilePath)) return;
+
+            var cacheFI = new FileInfo(tempCache.FilePath);
+            if (cacheFI.Directory == null
+                || !cacheFI.Directory.Exists
+                || cacheFI.DirectoryName == null) return;
+
+            var dir = new DirectoryInfo(cacheFI.DirectoryName);
+            foreach (FileInfo fi in dir.GetFiles())
             {
-                GeregeCache tempCache = new(0, new { tmp = 0 });
-                if (string.IsNullOrEmpty(tempCache.FilePath)) return;
-
-                FileInfo cacheFI = new(tempCache.FilePath);
-                if (cacheFI.Directory == null
-                    || !cacheFI.Directory.Exists
-                    || cacheFI.DirectoryName == null) return;
-
-                DirectoryInfo dir = new(cacheFI.DirectoryName);
-                foreach (FileInfo fi in dir.GetFiles())
-                {
-                    fi.Delete();
-                }
-                foreach (DirectoryInfo subdir in dir.GetDirectories())
-                {
-                    subdir.Delete(true);
-                }
+                fi.Delete();
             }
-            catch { }
+            foreach (DirectoryInfo subdir in dir.GetDirectories())
+            {
+                subdir.Delete(true);
+            }
         }
     }
 }

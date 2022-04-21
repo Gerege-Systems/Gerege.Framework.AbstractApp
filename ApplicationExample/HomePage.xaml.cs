@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -15,6 +16,8 @@ namespace ApplicationExample
     /// </summary>
     public partial class HomePage : Page
     {
+        private static readonly log4net.ILog Log4Net = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         public struct Welcome
         {
             public static int GeregeMessage() => 101;
@@ -51,7 +54,10 @@ namespace ApplicationExample
             catch (Exception ex)
             {
                 TitleBox.Text = ex.Message;
-                Debug.WriteLine("Welcome-ийг авах үед алдаа гарлаа -> " + ex.Message);
+
+                string logMsg = "Welcome-ийг авах үед алдаа гарлаа";
+                Log4Net.Error(logMsg, ex);
+                Debug.WriteLine(logMsg + " -> " + ex.Message);
             }
             finally
             {
@@ -65,19 +71,18 @@ namespace ApplicationExample
             {
                 SampleApp MyApp = this.App();
                 string dllName = "GeregeSampleModule.dll";
-                object? partners = MyApp.ModuleStart(
+                object partners = MyApp.ModuleStart(
                     MyApp.CurrentDirectory + dllName,
                     new { conclusion = "Loading module is easy and peasy" });
-
-                if (partners is not Page)
-                    throw new Exception(dllName + ": Module.Start функц нь Page буцаасангүй!");
-
                 MyApp.RaiseEvent("load-page", partners);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("GeregeSampleModule.dll-ийг ачаалах үед алдаа гарлаа -> " + ex.Message);
                 ((Button)sender).Content = ex.Message;
+
+                string logMsg = "Sample Module-ийг ачаалах үед алдаа гарлаа";
+                Log4Net.Error(logMsg, ex);
+                Debug.WriteLine(logMsg + " -> " + ex.Message);
             }
         }
     }

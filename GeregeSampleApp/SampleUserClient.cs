@@ -29,7 +29,7 @@ namespace GeregeSampleApp
         /// <param name="payload">Нэвтрэх мэдээлэл.</param>
         public void Login(dynamic payload)
         {
-            GeregeToken? token = FetchToken(payload);
+            GeregeToken token = FetchToken(payload);
 
             if (string.IsNullOrEmpty(token?.Value))
                 throw new Exception("Invalid token data!");
@@ -37,11 +37,11 @@ namespace GeregeSampleApp
             this.AppRaiseEvent("client-login");
         }
 
-        GeregeToken? currentToken = null;
-        dynamic? fetchTokenPayload = null;
+        GeregeToken currentToken = null;
+        dynamic fetchTokenPayload = null;
 
         /// <inheritdoc />
-        protected override GeregeToken? FetchToken(dynamic? payload = null)
+        protected override GeregeToken FetchToken(dynamic payload = null)
         {
             if (payload != null)
                 fetchTokenPayload = payload;

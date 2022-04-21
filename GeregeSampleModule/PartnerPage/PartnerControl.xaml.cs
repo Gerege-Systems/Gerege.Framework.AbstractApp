@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
+using System.Threading;
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Controls;
-using System.Threading;
-using System.Diagnostics;
-using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
@@ -36,11 +36,11 @@ namespace GeregeSampleModule.PartnerPage
     }
 
     /// <summary>
-    /// Interaction logic for Partners.xaml
+    /// Interaction logic for PartnerControl.xaml
     /// </summary>
-    public partial class Partners : Page
+    public partial class PartnerControl : UserControl
     {
-        public Partners()
+        public PartnerControl()
         {
             InitializeComponent();
         }
@@ -81,7 +81,7 @@ namespace GeregeSampleModule.PartnerPage
                     };
                     border.MouseDown += MenuItemClick;
 
-                    BitmapImage? logoImg = this.ReadBitmapImage("PartnerPage" + Path.DirectorySeparatorChar + partner.Logo);
+                    BitmapImage logoImg = this.ReadBitmapImage("PartnerPage" + Path.DirectorySeparatorChar + partner.Logo);
                     if (logoImg != null)
                         border.Background = new ImageBrush { ImageSource = logoImg };
                     else
@@ -117,7 +117,7 @@ namespace GeregeSampleModule.PartnerPage
 
         private void MenuItemClick(object sender, MouseButtonEventArgs e)
         {
-            string? href = Convert.ToString(((FrameworkElement)sender).Tag);
+            string href = Convert.ToString(((FrameworkElement)sender).Tag);
 
             if (string.IsNullOrEmpty(href)) return;
 

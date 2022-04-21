@@ -21,27 +21,24 @@ namespace Gerege.Framework.WPFApp
     /// </summary>
     public abstract class GeregeWPFApp : Application
     {
-        /// <summary>Апп процесс идэвхтэй ажиллаж буй хавтас зам.</summary>
+        /// <summary>Апп процесс оршиж/ажиллаж буй хавтас зам.</summary>
         public string CurrentDirectory;
 
         /// <summary>Гэрэгэ үзэгдэл хүлээн авагч төрөл зарлах.</summary>
         /// <param name="name">Гэрэгэ үзэгдэл нэр.</param>
         /// <param name="args">Үзэгдэлд дамжуулах өгөгдөл параметр.</param>
         /// <returns>Үзэгдэл хүлээн авагчаас үр дүн эсвэл null буцаана.</returns>
-        public delegate dynamic? GeregeEventHandler(string name, dynamic? args = null);
+        public delegate dynamic GeregeEventHandler(string name, dynamic args = null);
 
         /// <summary>Gerege үзэгдэл хүлээн авагч.</summary>
-        public event GeregeEventHandler? EventHandler;
+        public event GeregeEventHandler EventHandler;
 
         /// <summary>Гэрэгэ апп үүсгэгч.</summary>
         public GeregeWPFApp()
         {
-            // App идэвхитэй ажиллаж байгаа хавтас олоx
-            DirectoryInfo? currentDir = null;
-            if (Environment.ProcessPath != null)
-                currentDir = Directory.GetParent(Environment.ProcessPath);
-            if (currentDir == null)
-                currentDir = new DirectoryInfo(Environment.CurrentDirectory);
+            // App оршиж буй хавтас замыг олоx
+            DirectoryInfo currentDir = Directory.GetParent(
+                       Process.GetCurrentProcess().MainModule.FileName);
             CurrentDirectory = currentDir.FullName + Path.DirectorySeparatorChar;
         }
 
@@ -53,16 +50,16 @@ namespace Gerege.Framework.WPFApp
         /// Ямар нэгэн алдаа гарч Exception үүссэн бол үзэгдлийн үр дүнд алдааны мэдээллийг олгоно.
         /// <para>Үзэгдэл хүлээн авагчаас үр дүн null байх боломжтой.</para>
         /// </returns>
-        public virtual dynamic? RaiseEvent(string name, dynamic? args = null)
+        public virtual dynamic RaiseEvent(string name, dynamic args = null)
         {
             // боломжит үзэгдэл хүлээн авагчдийг цуглуулж байна
-            Delegate[]? delegates = EventHandler?.GetInvocationList();
+            Delegate[] delegates = EventHandler?.GetInvocationList();
 
-            // боломжит үзэгдэл хүлээн авагчид байхгүй тул null утга буцаая
-            if (delegates == null) return null;
+            // боломжит үзэгдэл хүлээн авагчид байхгүй бол null утга буцаая
+            if (delegates is null) return null;
 
             // хүлээн авагчидаас боловсруулсан үр дүнг энэ жагсаалтад бүртгэе
-            List<dynamic> results = new();
+            var results = new List<dynamic>();
 
             // үзэгдэл хүлээн авагч бүрийг ажиллуулж байна
             foreach (Delegate d in delegates)
@@ -94,7 +91,7 @@ namespace Gerege.Framework.WPFApp
         /// </summary>
         protected abstract void CreateComponents();
 
-        private Mutex? _instanceMutex;
+        private Mutex _instanceMutex;
 
         /// <summary>
         /// Апп анх ачаалагдах үед биелэх үзэгдлийн виртуал функц.
@@ -129,7 +126,7 @@ namespace Gerege.Framework.WPFApp
             {
                 // Апп үндсэн процессыг авна
                 Process currentProcess = Process.GetCurrentProcess();
-                var runningProcess = (from process in Process.GetProcesses()
+                Process runningProcess = (from process in Process.GetProcesses()
                                       where
                                         process.Id != currentProcess.Id &&
                                         process.ProcessName.Equals(

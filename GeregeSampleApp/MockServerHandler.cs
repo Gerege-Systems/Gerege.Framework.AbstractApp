@@ -25,7 +25,7 @@ namespace GeregeSampleApp
             {
                 Thread.Sleep(500); // Интернетээр хандаж буй мэт сэтгэгдэл төрүүлэх үүднээс хором хүлээлгэе
 
-                string? requestTarget = request.RequestUri?.ToString();
+                string requestTarget = request.RequestUri?.ToString();
                 if (requestTarget != this.AppRaiseEvent("get-server-address"))
                     throw new Exception("Unknown route pattern [" + requestTarget + "]");
 
@@ -34,10 +34,10 @@ namespace GeregeSampleApp
                     || request.Method != HttpMethod.Post) throw new Exception("Invalid request");
 
                 int message_code = Convert.ToInt32(message_code_header);
-                string? token = request.Headers.Authorization?.ToString();
+                string token = request.Headers.Authorization?.ToString();
 
-                Task<string>? input = request.Content?.ReadAsStringAsync(cancellationToken);
-                dynamic? payload = JsonConvert.DeserializeObject(input?.Result!);
+                Task<string> input = request.Content?.ReadAsStringAsync();
+                dynamic payload = JsonConvert.DeserializeObject(input?.Result);
 
                 return HandleMessages(message_code, payload, token);
             }
@@ -63,7 +63,7 @@ namespace GeregeSampleApp
             });
         }
 
-        private Task<HttpResponseMessage> HandleMessages(int message_code, dynamic? payload, string? token = null)
+        private Task<HttpResponseMessage> HandleMessages(int message_code, dynamic payload, string token = null)
         {
             if (message_code == 1)
                 return UserLogin(payload);
@@ -71,30 +71,33 @@ namespace GeregeSampleApp
             if (token != "Bearer " + tokenValue)
                 throw new Exception("Unauthorized access!");
 
-            return message_code switch
+            switch (message_code)
             {
-                101 => Respond(new
-                {
-                    code = 200,
-                    status = "success",
-                    message = "",
-                    result = new
+                case 101:
+                    return Respond(new
                     {
-                        title = "Welcome to Gerege Systems"
-                    }
-                }),
-                102 => Respond(new
-                {
-                    code = 200,
-                    status = "success",
-                    message = "",
-                    result = LoadEmbeddedJson("gerege_partners.json")
-                }),
-                _ => throw new Exception(message_code + ": Message code not found"),
-            };
+                        code = 200,
+                        status = "success",
+                        message = "",
+                        result = new
+                        {
+                            title = "Welcome to Gerege Systems"
+                        }
+                    });
+                case 102:
+                    return Respond(new
+                    {
+                        code = 200,
+                        status = "success",
+                        message = "",
+                        result = LoadEmbeddedJson("gerege_partners.json")
+                    });
+                default:
+                    throw new Exception(message_code + ": Message code not found");
+            }
         }
 
-        private Task<HttpResponseMessage> UserLogin(dynamic? payload)
+        private Task<HttpResponseMessage> UserLogin(dynamic payload)
         {
             string username = Convert.ToString(payload?.username ?? "");
             string password = Convert.ToString(payload?.password ?? "");
@@ -118,21 +121,16 @@ namespace GeregeSampleApp
             });
         }
 
-        private dynamic? LoadEmbeddedJson(string szFilePath)
+        private dynamic LoadEmbeddedJson(string szFilePath)
         {
-            try
-            {
-                var assembly = Assembly.GetExecutingAssembly();
-                using var stream = assembly.GetManifestResourceStream(typeof(MockServerHandler).Namespace + "." + szFilePath);
-                if (stream == null)
-                    throw new FileNotFoundException(assembly.GetName().Name + " дотор " + szFilePath + " гэсэн файл байхгүй л байна даа!");
+            var assembly = Assembly.GetExecutingAssembly();
+            var stream = assembly.GetManifestResourceStream(typeof(MockServerHandler).Namespace + "." + szFilePath);
+            if (stream is null)
+                throw new FileNotFoundException(assembly.GetName().Name + " дотор " + szFilePath + " гэсэн файл байхгүй л байна даа!");
 
-                using StreamReader reader = new StreamReader(stream);
-                return JsonConvert.DeserializeObject(reader.ReadToEnd());
-            }
-            catch (Exception)
+            using (var reader = new StreamReader(stream))
             {
-                throw;
+                return JsonConvert.DeserializeObject(reader.ReadToEnd());
             }
         }
     }

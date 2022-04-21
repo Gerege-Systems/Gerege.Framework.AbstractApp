@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
+using System.Reflection;
+
+using Newtonsoft.Json;
 
 using GeregeSampleApp;
 
@@ -12,6 +14,8 @@ namespace ApplicationExample
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static readonly log4net.ILog Log4Net = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,25 +33,26 @@ namespace ApplicationExample
         /// <returns>
         /// Үзэгдэл хүлээн авагчтай бол боловсруулсан үр дүнг dynamic төрлөөр буцаана, үгүй бол null утга буцна.
         /// </returns>
-        public dynamic? GeregEventHandler(string @event, dynamic? param = null)
+        public dynamic GeregEventHandler(string @event, dynamic param = null)
         {
             Debug.WriteLine("Gerege үзэгдэл дуудагдаж байна => " + @event);
 
-            return @event switch
-            {
-                "trigger-client-login" => OnTriggerClientLogin(),
-                "client-login" => OnClientLogin(),
-                "load-home" => OnLoadHome(),
-                "load-page" => OnLoadPage(param),
+            Log4Net.Info(@event);
 
-                _ => null,
-            };
+            switch (@event)
+            {
+                case "trigger-client-login": return OnTriggerClientLogin();
+                case "client-login": return OnClientLogin();
+                case "load-home": return OnLoadHome();
+                case "load-page": return OnLoadPage(param);
+                default: return null;
+            }
         }
 
         /// <summary>
         /// Апп дээр үндсэн хэрэглэгч нэвтрэхийг шаардах үед энэ функц ажиллана.
         /// </summary>
-        public dynamic? OnTriggerClientLogin()
+        public dynamic OnTriggerClientLogin()
         {
             Dispatcher.Invoke(() =>
             {
@@ -60,7 +65,7 @@ namespace ApplicationExample
         /// <summary>
         /// Апп дээр үндсэн хэрэглэгч амжилттай нэвтрэх үед энэ функц ажиллана.
         /// </summary>
-        public dynamic? OnClientLogin()
+        public dynamic OnClientLogin()
         {
             return this.AppRaiseEvent("load-home");
         }
@@ -68,7 +73,7 @@ namespace ApplicationExample
         /// <summary>
         /// Нүүр хуудасруу шилжихийг хүсэх үед энэ функц ажиллана.
         /// </summary>
-        public dynamic? OnLoadHome()
+        public dynamic OnLoadHome()
         {
             Dispatcher.Invoke(() =>
             {
@@ -82,18 +87,18 @@ namespace ApplicationExample
         /// Модулиас уншсан Page рүү шилжих.
         /// </summary>
         /// <param name="param">Page обьект.</param>
-        public dynamic? OnLoadPage(dynamic param)
+        public dynamic OnLoadPage(dynamic param)
         {
             try
             {
                 Dispatcher.Invoke(() =>
                 {
-                    return MainFrame.Navigate((Page)param);
+                    return MainFrame.Navigate(param);
                 });
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Log4Net.Error(ex);
             }
 
             return null;

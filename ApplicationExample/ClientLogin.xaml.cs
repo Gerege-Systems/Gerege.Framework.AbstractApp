@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Reflection;
 using System.Diagnostics;
 using System.Windows.Controls;
 
@@ -12,6 +13,8 @@ namespace ApplicationExample
     /// </summary>
     public partial class UserLogin : Page
     {
+        private static readonly log4net.ILog Log4Net = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>Хэрэглэгч нэвтрэх</summary>
         public UserLogin()
         {
@@ -45,6 +48,7 @@ namespace ApplicationExample
             }
             catch (Exception ex)
             {
+                Log4Net.Error(ex);
                 Debug.WriteLine(ex);
                 errorTextBlock.Text = ex.Message;
             }

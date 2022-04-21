@@ -28,6 +28,6 @@ public class Module
         string log = Convert.ToString(param);
         Debug.WriteLine("Module.Start passed argument from Host application -> " + log);
 
-        return new Partners();
+        return new PartnerControl();
     }
 }
