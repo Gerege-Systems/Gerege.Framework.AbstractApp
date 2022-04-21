@@ -12,7 +12,8 @@
 		<copyright>$copyright$</copyright>
 		<tags>gerege;framework;wpf;windows;application</tags>
 		<dependencies>
-			<group targetFramework=".NETFramework4.7.2" />
+			<group targetFramework=".NETFramework4.7.2">
+			</group>
 		</dependencies>
 	</metadata>
 	<files>
