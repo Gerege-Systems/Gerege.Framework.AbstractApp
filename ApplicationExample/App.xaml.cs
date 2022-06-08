@@ -10,6 +10,8 @@ namespace ApplicationExample
         public App()
         {
             InitializeComponent();
+
+            log4net.Config.XmlConfigurator.Configure();
         }
     }
 }

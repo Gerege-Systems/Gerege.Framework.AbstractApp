@@ -20,7 +20,7 @@ namespace GeregeSampleApp
         /// <inheritdoc />
         public SampleUserClient(HttpMessageHandler handler) : base(handler)
         {
-            BaseAddress = new Uri(this.AppRaiseEvent("get-server-address"));
+            BaseAddress = new(this.AppRaiseEvent("get-server-address"));
         }
 
         /// <summary>
@@ -29,31 +29,32 @@ namespace GeregeSampleApp
         /// <param name="payload">Нэвтрэх мэдээлэл.</param>
         public void Login(dynamic payload)
         {
-            GeregeToken token = FetchToken(payload);
+            GeregeToken? token = FetchToken(payload);
 
-            if (string.IsNullOrEmpty(token?.Value))
-                throw new Exception("Invalid token data!");
+            if (token is null
+                || string.IsNullOrEmpty(token.Value))
+                throw new("Invalid token data!");
 
             this.AppRaiseEvent("client-login");
         }
 
-        GeregeToken currentToken = null;
-        dynamic fetchTokenPayload = null;
+        GeregeToken? currentToken = null;
+        dynamic? fetchTokenPayload = null;
 
         /// <inheritdoc />
-        protected override GeregeToken FetchToken(dynamic payload = null)
+        protected override GeregeToken? FetchToken(dynamic? payload = null)
         {
-            if (payload != null)
+            if (payload is not null)
                 fetchTokenPayload = payload;
 
-            if (currentToken != null
+            if (currentToken is not null
                 && currentToken.IsExpiring)
             {
                 currentToken = null;
                 payload = fetchTokenPayload;
             }
 
-            if (payload != null)
+            if (payload is not null)
                 currentToken = Request<SampleToken>(payload);
 
             return currentToken;

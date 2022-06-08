@@ -40,7 +40,7 @@ namespace GeregeSampleApp
             };
 
             // Хэрэглэгчийн клиентийг үүсгэж байна
-            UserClient = new SampleUserClient(pipeline);
+            UserClient = new(pipeline);
         }
 
         /// <summary>
@@ -68,15 +68,13 @@ namespace GeregeSampleApp
         /// <summary>
         /// Gerege үзэгдэл хүлээн авагч.
         /// </summary>
-        public dynamic BaseEventHandler(string @event, dynamic param = null)
+        public dynamic? BaseEventHandler(string @event, dynamic? param = null)
         {
-            switch (@event)
+            return @event switch
             {
-                case "get-server-address":
-                    return "http://mock-server/api";
-                default:
-                    return null;
-            }
+                "get-server-address" => "http://mock-server/api",
+                _ => null,
+            };
         }
 
         /// <summary>
@@ -91,19 +89,19 @@ namespace GeregeSampleApp
         {
             if (string.IsNullOrEmpty(filePath)
                     || !File.Exists(filePath))
-                throw new Exception(filePath + ": Модул зам олдсонгүй!");
+                throw new(filePath + ": Модул зам олдсонгүй!");
 
             string dllName = Path.GetFileName(filePath);
 
             Assembly assembly = Assembly.LoadFrom(filePath);
             Type type = assembly.GetType("Module");
-            if (type is null) throw new Exception(dllName + ": Module class олдсонгүй!");
+            if (type is null) throw new(dllName + ": Module class олдсонгүй!");
 
             object instanceOfMyType = Activator.CreateInstance(type);
-            if (instanceOfMyType is null) throw new Exception(dllName + ": Module обьект үүсгэж чадсангүй!");
+            if (instanceOfMyType is null) throw new(dllName + ": Module обьект үүсгэж чадсангүй!");
 
             MethodInfo methodInfo = type.GetMethod("Start", new Type[] { typeof(object) });
-            if (methodInfo is null) throw new Exception(dllName + ": Module.Start функц олдоогүй эсвэл буруу тодорхойлсон байна!");
+            if (methodInfo is null) throw new(dllName + ": Module.Start функц олдоогүй эсвэл буруу тодорхойлсон байна!");
 
             try
             {

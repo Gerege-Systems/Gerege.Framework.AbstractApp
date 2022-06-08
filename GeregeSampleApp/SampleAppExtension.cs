@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 
 #pragma warning disable IDE0060
+#pragma warning disable CS8603
 namespace GeregeSampleApp
 {
     /// <author>
@@ -63,7 +64,7 @@ namespace GeregeSampleApp
         /// Үзэгдэл хүлээн авагчаас үр дүн ирвэл dynamic төрлөөр буцаана, үгүй бол null утга буцаана.
         /// <para>Үзэгдэл хүлээн авагчаас үр дүн null буцаасан байх боломжтой.</para>
         /// </returns>
-        public static dynamic AppRaiseEvent(this object a, string name, dynamic args = null)
+        public static dynamic? AppRaiseEvent(this object a, string name, dynamic? args = null)
         {
             return a.App().RaiseEvent(name, args);
         }
@@ -87,7 +88,7 @@ namespace GeregeSampleApp
         /// <returns>
         /// Серверээс ирсэн хариуг амжилттай авч тухайн зарласан T темплейт класс обьектэд хөрвүүлсэн утгыг буцаана.
         /// </returns>
-        public static T UserRequest<T>(this object a, dynamic payload = null, HttpMethod method = null, string requestUri = null)
+        public static T UserRequest<T>(this object a, dynamic? payload = null, HttpMethod? method = null, string? requestUri = null)
         {
             return a.App().UserClient.Request<T>(payload, method, requestUri);
         }
@@ -112,7 +113,7 @@ namespace GeregeSampleApp
         /// <returns>
         /// Серверээс ирсэн хариуг амжилттай авсан эсвэл Cache дээрээс амжилттай уншсан мэдээллийг тухайн зарласан T темплейт класс обьектэд хөрвүүлсэн утгыг буцаана
         /// </returns>
-        public static T UserCacheRequest<T>(this object a, dynamic payload = null, HttpMethod method = null, string requestUri = null)
+        public static T UserCacheRequest<T>(this object a, dynamic? payload = null, HttpMethod? method = null, string? requestUri = null)
         {
             return a.App().UserClient.CacheRequest<T>(payload, method, requestUri);
         }
@@ -125,7 +126,7 @@ namespace GeregeSampleApp
         /// <returns>
         /// Амжилттай уншигдсан бол BitmapImage төрлийн утга бусад тохиолдолд null утга буцаана.
         /// </returns>
-        public static BitmapImage ReadBitmapImage(this object a, string filePath)
+        public static BitmapImage? ReadBitmapImage(this object a, string filePath)
         {
             try
             {
@@ -134,7 +135,7 @@ namespace GeregeSampleApp
                 if (!File.Exists(completePath))
                     throw new FileNotFoundException(completePath + " гэсэн файл байхгүй л байна даа!");
 
-                return new BitmapImage(new Uri(completePath));
+                return new(new(completePath));
             }
             catch
             {
@@ -144,3 +145,4 @@ namespace GeregeSampleApp
     }
 }
 #pragma warning restore IDE0060
+#pragma warning restore CS8603

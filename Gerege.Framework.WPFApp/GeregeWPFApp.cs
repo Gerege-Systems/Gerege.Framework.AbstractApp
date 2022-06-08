@@ -28,7 +28,7 @@ namespace Gerege.Framework.WPFApp
         /// <param name="name">Гэрэгэ үзэгдэл нэр.</param>
         /// <param name="args">Үзэгдэлд дамжуулах өгөгдөл параметр.</param>
         /// <returns>Үзэгдэл хүлээн авагчаас үр дүн эсвэл null буцаана.</returns>
-        public delegate dynamic GeregeEventHandler(string name, dynamic args = null);
+        public delegate dynamic? GeregeEventHandler(string name, dynamic? args = null);
 
         /// <summary>Gerege үзэгдэл хүлээн авагч.</summary>
         public event GeregeEventHandler EventHandler;
@@ -50,10 +50,10 @@ namespace Gerege.Framework.WPFApp
         /// Ямар нэгэн алдаа гарч Exception үүссэн бол үзэгдлийн үр дүнд алдааны мэдээллийг олгоно.
         /// <para>Үзэгдэл хүлээн авагчаас үр дүн null байх боломжтой.</para>
         /// </returns>
-        public virtual dynamic RaiseEvent(string name, dynamic args = null)
+        public virtual dynamic? RaiseEvent(string name, dynamic? args = null)
         {
             // боломжит үзэгдэл хүлээн авагчдийг цуглуулж байна
-            Delegate[] delegates = EventHandler?.GetInvocationList();
+            Delegate[]? delegates = EventHandler?.GetInvocationList();
 
             // боломжит үзэгдэл хүлээн авагчид байхгүй бол null утга буцаая
             if (delegates is null) return null;
@@ -107,7 +107,7 @@ namespace Gerege.Framework.WPFApp
             base.OnStartup(e);
 
             // Mutex үүссэн эсэхийг шалгая
-            _instanceMutex = new Mutex(true, @"Global\ControlPanel", out bool createdNew);
+            _instanceMutex = new(true, @"Global\ControlPanel", out bool createdNew);
 
             if (createdNew)
             {
@@ -133,7 +133,7 @@ namespace Gerege.Framework.WPFApp
                                           currentProcess.ProcessName,
                                           StringComparison.Ordinal)
                                       select process).FirstOrDefault();
-                if (runningProcess != null)
+                if (runningProcess is not null)
                 {
                     // Процесс нь үндсэн цонхтой байна уу?
                     if (runningProcess.MainWindowHandle != IntPtr.Zero)
@@ -168,7 +168,7 @@ namespace Gerege.Framework.WPFApp
         /// <param name="e">Унтрах процессын утгууд.</param>
         protected override void OnExit(ExitEventArgs e)
         {
-            _instanceMutex?.ReleaseMutex();
+            _instanceMutex.ReleaseMutex();
 
             base.OnExit(e);
         }

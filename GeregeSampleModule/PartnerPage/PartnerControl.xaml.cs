@@ -67,22 +67,22 @@ namespace GeregeSampleModule.PartnerPage
 
             try
             {
-                PartnerList list = this.UserRequest<PartnerList>();
+                var list = this.UserRequest<PartnerList>();
                 TitleBox.Text = "Successfully retrieved partners list.";
 
                 foreach (Partner partner in list.Data)
                 {
-                    Border border = new Border
+                    var border = new Border
                     {
                         Tag = partner.WebAddress,
                         Cursor = Cursors.Hand,
-                        Margin = new Thickness(20, 0, 0, 0),
+                        Margin = new(20, 0, 0, 0),
                         VerticalAlignment = VerticalAlignment.Top
                     };
                     border.MouseDown += MenuItemClick;
 
-                    BitmapImage logoImg = this.ReadBitmapImage("PartnerPage" + Path.DirectorySeparatorChar + partner.Logo);
-                    if (logoImg != null)
+                    BitmapImage? logoImg = this.ReadBitmapImage("PartnerPage" + Path.DirectorySeparatorChar + partner.Logo);
+                    if (logoImg is not null)
                         border.Background = new ImageBrush { ImageSource = logoImg };
                     else
                         border.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF0072fe"));
@@ -98,8 +98,8 @@ namespace GeregeSampleModule.PartnerPage
                         Foreground = Brushes.Black,
                         TextWrapping = TextWrapping.Wrap,
                         TextAlignment = TextAlignment.Center,
-                        Margin = new Thickness(0, 0, 0, -45),
-                        FontFamily = new FontFamily("Montserrat"),
+                        Margin = new(0, 0, 0, -45),
+                        FontFamily = new("Montserrat"),
                         VerticalAlignment = VerticalAlignment.Bottom,
                         HorizontalAlignment = HorizontalAlignment.Center
                     };
