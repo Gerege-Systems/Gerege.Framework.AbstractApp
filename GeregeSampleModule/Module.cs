@@ -1,7 +1,10 @@
-﻿using System;
+﻿/////// date: 2022.02.09 //////////
+///// author: Narankhuu ///////////
+//// contact: codesaur@gmail.com //
+
+using System;
 using System.Windows;
 using System.Diagnostics;
-
 using GeregeSampleModule.PartnerPage;
 
 /// <summary>
