@@ -14,7 +14,7 @@
     <PackageProjectUrl>https://github.com/Gerege-Systems/Gerege.Framework.WPFApp</PackageProjectUrl>
     <PackageIcon>gerege-icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>gerege;framework;wpf;windows;application</PackageTags>
+    <PackageTags>gerege;wpf;windows;application</PackageTags>
     <NeutralLanguage>mn-MN</NeutralLanguage>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
