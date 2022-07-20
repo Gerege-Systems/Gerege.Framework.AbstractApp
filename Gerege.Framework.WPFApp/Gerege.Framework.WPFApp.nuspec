@@ -10,7 +10,7 @@
 		<icon>gerege-icon.png</icon>
 		<description>$description$</description>
 		<copyright>$copyright$</copyright>
-		<tags>gerege;framework;wpf;windows;application</tags>
+		<tags>gerege;wpf;windows;application</tags>
 		<dependencies>
 		</dependencies>
 	</metadata>
