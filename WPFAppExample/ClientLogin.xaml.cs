@@ -1,22 +1,22 @@
-﻿namespace ApplicationExample;
-
-/////// date: 2022.02.09 //////////
-///// author: Narankhuu ///////////
-//// contact: codesaur@gmail.com //
-
-using System;
+﻿using System;
 using System.Threading;
 using System.Reflection;
 using System.Diagnostics;
 using System.Windows.Controls;
 using GeregeSampleApp;
 
+/////// date: 2022.02.09 //////////
+///// author: Narankhuu ///////////
+//// contact: codesaur@gmail.com //
+
+namespace WPFAppExample;
+
 /// <summary>
 /// Interaction logic for TerminalLogin.xaml
 /// </summary>
 public partial class UserLogin : Page
 {
-    private static readonly log4net.ILog Log4Net = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+    private static readonly log4net.ILog Log4Net = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
     /// <summary>Хэрэглэгч нэвтрэх</summary>
     public UserLogin()

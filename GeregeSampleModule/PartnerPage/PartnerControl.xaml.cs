@@ -1,10 +1,4 @@
-﻿namespace GeregeSampleModule.PartnerPage;
-
-/////// date: 2022.02.09 //////////
-///// author: Narankhuu ///////////
-//// contact: codesaur@gmail.com //
-
-using System;
+﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading;
@@ -16,6 +10,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Newtonsoft.Json;
 using GeregeSampleApp;
+
+/////// date: 2022.02.09 //////////
+///// author: Narankhuu ///////////
+//// contact: codesaur@gmail.com //
+
+namespace GeregeSampleModule.PartnerPage;
 
 public class Partner
 {
@@ -119,7 +119,7 @@ public partial class PartnerControl : UserControl
 
     private void MenuItemClick(object sender, MouseButtonEventArgs e)
     {
-        string href = Convert.ToString(((FrameworkElement)sender).Tag);
+        string? href = Convert.ToString(((FrameworkElement)sender).Tag);
 
         if (string.IsNullOrEmpty(href)) return;
 

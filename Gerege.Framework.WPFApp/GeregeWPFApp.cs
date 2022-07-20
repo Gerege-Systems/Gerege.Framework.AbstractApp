@@ -1,10 +1,4 @@
-﻿namespace Gerege.Framework.WPFApp;
-
-/////// date: 2022.01.22 //////////
-///// author: Narankhuu ///////////
-//// contact: codesaur@gmail.com //
-
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -12,6 +6,12 @@ using System.Threading;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+
+/////// date: 2022.01.22 //////////
+///// author: Narankhuu ///////////
+//// contact: codesaur@gmail.com //
+
+namespace Gerege.Framework.WPFApp;
 
 /// <summary>
 /// Гэрэгэ логикоор ажиллах програм хангамжын үндсэн суурь апп хийсвэр класс.
@@ -32,10 +32,13 @@ public abstract class GeregeWPFApp : Application
 
     /// <summary>Гэрэгэ апп үүсгэгч.</summary>
     public GeregeWPFApp()
-    {
-        // App оршиж буй хавтас замыг олоx
-        DirectoryInfo currentDir = Directory.GetParent(
-                   Process.GetCurrentProcess().MainModule.FileName);
+    {        
+        // App идэвхитэй ажиллаж байгаа хавтас олоx
+        DirectoryInfo? currentDir = null;
+        if (Environment.ProcessPath != null)
+            currentDir = Directory.GetParent(Environment.ProcessPath);
+        if (currentDir == null)
+            currentDir = new DirectoryInfo(Environment.CurrentDirectory);
         CurrentDirectory = currentDir.FullName + Path.DirectorySeparatorChar;
     }
 
@@ -123,7 +126,7 @@ public abstract class GeregeWPFApp : Application
         {
             // Апп үндсэн процессыг авна
             Process currentProcess = Process.GetCurrentProcess();
-            Process runningProcess = (from process in Process.GetProcesses()
+            Process? runningProcess = (from process in Process.GetProcesses()
                                   where
                                     process.Id != currentProcess.Id &&
                                     process.ProcessName.Equals(

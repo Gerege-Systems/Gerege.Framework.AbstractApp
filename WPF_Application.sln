@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationExample", "ApplicationExample\ApplicationExample.csproj", "{EB13863D-6278-48F5-A291-EEA9674AC0F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gerege.Framework.WPFApp", "Gerege.Framework.WPFApp\Gerege.Framework.WPFApp.csproj", "{51F55B71-6DCA-4E5E-B57A-6FF6785A463B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gerege.Framework.WPFApp", "Gerege.Framework.WPFApp\Gerege.Framework.WPFApp.csproj", "{51F55B71-6DCA-4E5E-B57A-6FF6785A463B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeregeSampleApp", "GeregeSampleApp\GeregeSampleApp.csproj", "{71F55B71-6DCA-4E5E-B57A-6FF6785A463B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeregeSampleApp", "GeregeSampleApp\GeregeSampleApp.csproj", "{71F55B71-6DCA-4E5E-B57A-6FF6785A463B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeregeSampleModule", "GeregeSampleModule\GeregeSampleModule.csproj", "{81F55B71-6DCA-4E5E-B57A-6FF6785A463B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeregeSampleModule", "GeregeSampleModule\GeregeSampleModule.csproj", "{81F55B71-6DCA-4E5E-B57A-6FF6785A463B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFAppExample", "WPFAppExample\WPFAppExample.csproj", "{C3E0A599-898E-4C77-BFCF-8465F7A00D70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EB13863D-6278-48F5-A291-EEA9674AC0F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB13863D-6278-48F5-A291-EEA9674AC0F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB13863D-6278-48F5-A291-EEA9674AC0F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB13863D-6278-48F5-A291-EEA9674AC0F3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51F55B71-6DCA-4E5E-B57A-6FF6785A463B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51F55B71-6DCA-4E5E-B57A-6FF6785A463B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51F55B71-6DCA-4E5E-B57A-6FF6785A463B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,8 +29,15 @@ Global
 		{81F55B71-6DCA-4E5E-B57A-6FF6785A463B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81F55B71-6DCA-4E5E-B57A-6FF6785A463B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81F55B71-6DCA-4E5E-B57A-6FF6785A463B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3E0A599-898E-4C77-BFCF-8465F7A00D70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3E0A599-898E-4C77-BFCF-8465F7A00D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3E0A599-898E-4C77-BFCF-8465F7A00D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3E0A599-898E-4C77-BFCF-8465F7A00D70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4946406A-D967-4358-B356-C2D369793C5A}
 	EndGlobalSection
 EndGlobal

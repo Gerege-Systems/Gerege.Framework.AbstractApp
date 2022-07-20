@@ -1,21 +1,21 @@
-﻿namespace ApplicationExample;
+﻿using System;
+using System.Diagnostics;
+using System.Windows;
+using System.Reflection;
+using GeregeSampleApp;
 
 /////// date: 2022.02.09 //////////
 ///// author: Narankhuu ///////////
 //// contact: codesaur@gmail.com //
 
-using System;
-using System.Diagnostics;
-using System.Windows;
-using System.Reflection;
-using GeregeSampleApp;
+namespace WPFAppExample;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
 public partial class MainWindow : Window
 {
-    private static readonly log4net.ILog Log4Net = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+    private static readonly log4net.ILog Log4Net = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
     public MainWindow()
     {

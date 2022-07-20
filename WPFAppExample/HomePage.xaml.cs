@@ -1,10 +1,4 @@
-﻿namespace ApplicationExample;
-
-/////// date: 2022.02.09 //////////
-///// author: Narankhuu ///////////
-//// contact: codesaur@gmail.com //
-
-using System;
+﻿using System;
 using System.Threading;
 using System.Diagnostics;
 using System.Reflection;
@@ -13,12 +7,18 @@ using System.Windows.Controls;
 using Newtonsoft.Json;
 using GeregeSampleApp;
 
+/////// date: 2022.02.09 //////////
+///// author: Narankhuu ///////////
+//// contact: codesaur@gmail.com //
+
+namespace WPFAppExample;
+
 /// <summary>
 /// Interaction logic for HomePage.xaml
 /// </summary>
 public partial class HomePage : Page
 {
-    private static readonly log4net.ILog Log4Net = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+    private static readonly log4net.ILog Log4Net = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
     public struct Welcome
     {
@@ -73,7 +73,7 @@ public partial class HomePage : Page
         {
             SampleApp MyApp = this.App();
             string dllName = "GeregeSampleModule.dll";
-            object partners = MyApp.ModuleStart(
+            object? partners = MyApp.ModuleStart(
                 MyApp.CurrentDirectory + dllName,
                 new { conclusion = "Loading module is easy and peasy" });
             MyApp.RaiseEvent("load-page", partners);

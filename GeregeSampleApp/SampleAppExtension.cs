@@ -1,17 +1,14 @@
-﻿#pragma warning disable IDE0060
-#pragma warning disable CS8603
-
-namespace GeregeSampleApp;
+﻿using System;
+using System.IO;
+using System.Net.Http;
+using System.Windows;
+using System.Windows.Media.Imaging;
 
 /////// date: 2022.02.09 //////////
 ///// author: Narankhuu ///////////
 //// contact: codesaur@gmail.com //
 
-using System;
-using System.IO;
-using System.Net.Http;
-using System.Windows;
-using System.Windows.Media.Imaging;
+namespace GeregeSampleApp;
 
 /// <summary>
 /// Гэрэгэ логикоор ажиллах програм хангамжын үндсэн суурь аппын өргөтгөл.
@@ -20,6 +17,8 @@ using System.Windows.Media.Imaging;
 /// одоо идэвхитэй ачаалагдсан Гэрэгэ апп объектыг дуудан ашиглах боломжтой болгоно.
 /// </para>
 /// </summary>
+#pragma warning disable IDE0060
+#pragma warning disable CS8603
 public static class SampleAppExtension
 {
     /// <summary>
@@ -28,7 +27,7 @@ public static class SampleAppExtension
     /// <code>
     /// // code sample
     /// App MyApp = this.App();
-    /// Page partners = (Page)MyApp.LoadModule(
+    /// object? partners = MyApp.LoadModule(
     ///     MyApp.CurrentDirectory + "GeregeSampleModule.dll",
     ///     new { conclusion = "Loading module is easy and peasy" });
     /// MyApp.RaiseEvent("load-page", partners);

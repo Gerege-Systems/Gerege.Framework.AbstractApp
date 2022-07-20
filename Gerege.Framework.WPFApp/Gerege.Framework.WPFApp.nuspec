@@ -4,7 +4,7 @@
 		<id>$id$</id>
 		<version>$version$</version>
 		<title>$title$</title>
-		<authors>$author$</authors>
+		<authors>$authors$</authors>
 		<projectUrl>https://github.com/Gerege-Systems/Gerege.Framework.WPFApp</projectUrl>
 		<readme>README.md</readme>
 		<icon>gerege-icon.png</icon>
@@ -12,8 +12,6 @@
 		<copyright>$copyright$</copyright>
 		<tags>gerege;framework;wpf;windows;application</tags>
 		<dependencies>
-			<group targetFramework=".NETFramework4.7.2">
-			</group>
 		</dependencies>
 	</metadata>
 	<files>

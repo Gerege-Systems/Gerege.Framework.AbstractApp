@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <LangVersion>10.0</LangVersion>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
@@ -20,15 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Gerege.Framework.HttpClient" Version="5.5.0" />
+    <PackageReference Include="Gerege.Framework.HttpClient" Version="6.0.0-preview" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Gerege.Framework.WPFApp\Gerege.Framework.WPFApp.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Net.Http" />
   </ItemGroup>
   
 </Project>

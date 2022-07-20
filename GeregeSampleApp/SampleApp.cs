@@ -1,10 +1,4 @@
-﻿namespace GeregeSampleApp;
-
-/////// date: 2022.02.09 //////////
-///// author: Narankhuu ///////////
-//// contact: codesaur@gmail.com //
-
-using System;
+﻿using System;
 using System.IO;
 using System.Windows;
 using System.Reflection;
@@ -12,6 +6,12 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Gerege.Framework.WPFApp;
 using Gerege.Framework.HttpClient;
+
+/////// date: 2022.02.09 //////////
+///// author: Narankhuu ///////////
+//// contact: codesaur@gmail.com //
+
+namespace GeregeSampleApp;
 
 /// <summary>
 /// GeregeWPFApp-аас удамшсан SampleApp апп объект.
@@ -88,7 +88,7 @@ public class SampleApp : GeregeWPFApp
     /// <returns>
     /// Амжилттай үр дүн.
     /// </returns>
-    public object ModuleStart(string filePath, dynamic param)
+    public object? ModuleStart(string filePath, dynamic param)
     {
         if (string.IsNullOrEmpty(filePath)
                 || !File.Exists(filePath))
@@ -97,13 +97,13 @@ public class SampleApp : GeregeWPFApp
         string dllName = Path.GetFileName(filePath);
 
         Assembly assembly = Assembly.LoadFrom(filePath);
-        Type type = assembly.GetType("Module");
+        Type? type = assembly.GetType("Module");
         if (type is null) throw new(dllName + ": Module class олдсонгүй!");
 
-        object instanceOfMyType = Activator.CreateInstance(type);
+        object? instanceOfMyType = Activator.CreateInstance(type);
         if (instanceOfMyType is null) throw new(dllName + ": Module обьект үүсгэж чадсангүй!");
 
-        MethodInfo methodInfo = type.GetMethod("Start", new Type[] { typeof(object) });
+        MethodInfo? methodInfo = type.GetMethod("Start", new Type[] { typeof(object) });
         if (methodInfo is null) throw new(dllName + ": Module.Start функц олдоогүй эсвэл буруу тодорхойлсон байна!");
 
         try

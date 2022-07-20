@@ -1,4 +1,4 @@
-﻿<sample:SampleApp x:Class="ApplicationExample.App"
+﻿<sample:SampleApp x:Class="WPFAppExample.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:sample="clr-namespace:GeregeSampleApp;assembly=GeregeSampleApp"

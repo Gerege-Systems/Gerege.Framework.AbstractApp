@@ -1,10 +1,4 @@
-﻿namespace GeregeSampleApp;
-
-/////// date: 2022.02.09 //////////
-///// author: Narankhuu ///////////
-//// contact: codesaur@gmail.com //
-
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -12,6 +6,12 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+
+/////// date: 2022.02.09 //////////
+///// author: Narankhuu ///////////
+//// contact: codesaur@gmail.com //
+
+namespace GeregeSampleApp;
 
 /// <summary>
 /// Туршилтын зорилгоор ашиглах хуурамч сервер хандалт.
@@ -28,7 +28,7 @@ public sealed class MockServerHandler : HttpMessageHandler
         {
             Thread.Sleep(500); // Интернетээр хандаж буй мэт сэтгэгдэл төрүүлэх үүднээс хором хүлээлгэе
 
-            string requestTarget = request.RequestUri.ToString();
+            string? requestTarget = request.RequestUri?.ToString();
             if (requestTarget != this.AppRaiseEvent("get-server-address"))
                 throw new("Unknown route pattern [" + requestTarget + "]");
 
@@ -39,7 +39,10 @@ public sealed class MockServerHandler : HttpMessageHandler
             int message_code = Convert.ToInt32(message_code_header);
             string? token = request.Headers.Authorization?.ToString();
 
-            Task<string> input = request.Content.ReadAsStringAsync();
+            Task<string>? input = request.Content?.ReadAsStringAsync(cancellationToken);
+            if (input is null)
+                throw new("Invalid input!");
+
             dynamic? payload = JsonConvert.DeserializeObject(input.Result);
 
             return HandleMessages(message_code, payload, token);

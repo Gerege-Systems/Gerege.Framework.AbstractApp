@@ -1,11 +1,11 @@
-﻿/////// date: 2022.02.09 //////////
-///// author: Narankhuu ///////////
-//// contact: codesaur@gmail.com //
-
-using System;
+﻿using System;
 using System.Windows;
 using System.Diagnostics;
 using GeregeSampleModule.PartnerPage;
+
+/////// date: 2022.02.09 //////////
+///// author: Narankhuu ///////////
+//// contact: codesaur@gmail.com //
 
 /// <summary>
 /// Модуль үйлчилгээний эх класс.
@@ -16,6 +16,7 @@ using GeregeSampleModule.PartnerPage;
 /// ил байгаа Module классын Start функцыг дуудсанаар FrameworkElement аваад ашигладаг.
 /// Тийм учраас Module классыг namespace-гүйгээр ил зарлаж байна.
 /// </summary>
+#pragma warning disable CA1050
 public class Module
 {
     /// <summary>
@@ -34,3 +35,4 @@ public class Module
         return new PartnerControl();
     }
 }
+#pragma warning restore CA1050
