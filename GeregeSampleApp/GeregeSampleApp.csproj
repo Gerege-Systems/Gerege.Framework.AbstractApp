@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Gerege.Framework.HttpClient" Version="6.0.0-preview" />
+    <PackageReference Include="Gerege.Framework.HttpClient" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
