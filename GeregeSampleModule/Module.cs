@@ -11,7 +11,7 @@ using GeregeSampleModule.PartnerPage;
 /// Модуль үйлчилгээний эх класс.
 /// <para>
 /// </para>
-/// GeregeWinPFApp нь Модуль үйлчилгээг ажиллуулах зарчим нь бол
+/// Gerege application нь Модуль үйлчилгээг ажиллуулах зарчим нь бол
 /// Module dll-ийг санах ойд ачаалаад Assembly дотроос ямар нэг namespace дотор агуулагдаагүй
 /// ил байгаа Module классын Start функцыг дуудсанаар FrameworkElement аваад ашигладаг.
 /// Тийм учраас Module классыг namespace-гүйгээр ил зарлаж байна.
@@ -30,7 +30,7 @@ public class Module
     public FrameworkElement Start(dynamic param)
     {
         string log = Convert.ToString(param);
-        Debug.WriteLine("Module.Start passed argument from Host application -> " + log);
+        Debug.WriteLine("Module.Start param -> " + log);
 
         return new PartnerControl();
     }
