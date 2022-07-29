@@ -13,7 +13,7 @@ using GeregeSampleModule.PartnerPage;
 /// </para>
 /// Gerege application нь Модуль үйлчилгээг ажиллуулах зарчим нь бол
 /// Module dll-ийг санах ойд ачаалаад Assembly дотроос ямар нэг namespace дотор агуулагдаагүй
-/// ил байгаа Module классын Start функцыг дуудсанаар FrameworkElement аваад ашигладаг.
+/// ил байгаа Module классын Start функцыг дуудсанаар үр дүнд үүсэх обьектыг аваад ашигладаг.
 /// Тийм учраас Module классыг namespace-гүйгээр ил зарлаж байна.
 /// </summary>
 #pragma warning disable CA1050
