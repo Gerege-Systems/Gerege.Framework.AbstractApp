@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows;
 using System.Diagnostics;
 using GeregeSampleModule.PartnerPage;
 
@@ -27,7 +26,7 @@ public class Module
     /// <returns>
     /// Гэрэгийн томоохон харилцагчдын мэдээлэл агуулах хуудас.
     /// </returns>
-    public FrameworkElement Start(dynamic param)
+    public object? Start(dynamic param)
     {
         string log = Convert.ToString(param);
         Debug.WriteLine("Module.Start param -> " + log);
