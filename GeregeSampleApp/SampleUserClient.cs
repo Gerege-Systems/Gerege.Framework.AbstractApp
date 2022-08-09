@@ -44,7 +44,7 @@ public class SampleUserClient : GeregeClient
     dynamic? fetchTokenPayload = null;
 
     /// <inheritdoc />
-    protected override GeregeToken? FetchToken(dynamic? payload = null)
+    protected override GeregeToken? FetchToken(object? payload = null)
     {
         if (payload is not null)
             fetchTokenPayload = payload;
