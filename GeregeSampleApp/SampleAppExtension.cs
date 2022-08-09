@@ -61,7 +61,7 @@ public static class SampleAppExtension
     /// Үзэгдэл хүлээн авагчаас үр дүн ирвэл dynamic төрлөөр буцаана, үгүй бол null утга буцаана.
     /// <para>Үзэгдэл хүлээн авагчаас үр дүн null буцаасан байх боломжтой.</para>
     /// </returns>
-    public static dynamic? AppRaiseEvent(this object a, string name, dynamic? args = null)
+    public static dynamic? AppRaiseEvent(this object a, string name, object? args = null)
     {
         return a.App().RaiseEvent(name, args);
     }
@@ -85,7 +85,7 @@ public static class SampleAppExtension
     /// <returns>
     /// Серверээс ирсэн хариуг амжилттай авч тухайн зарласан T темплейт класс обьектэд хөрвүүлсэн утгыг буцаана.
     /// </returns>
-    public static T UserRequest<T>(this object a, dynamic? payload = null, HttpMethod? method = null, string? requestUri = null)
+    public static T UserRequest<T>(this object a, object? payload = null, HttpMethod? method = null, string? requestUri = null)
     {
         return a.App().UserClient.Request<T>(payload, method, requestUri);
     }
@@ -110,7 +110,7 @@ public static class SampleAppExtension
     /// <returns>
     /// Серверээс ирсэн хариуг амжилттай авсан эсвэл Cache дээрээс амжилттай уншсан мэдээллийг тухайн зарласан T темплейт класс обьектэд хөрвүүлсэн утгыг буцаана
     /// </returns>
-    public static T UserCacheRequest<T>(this object a, dynamic? payload = null, HttpMethod? method = null, string? requestUri = null)
+    public static T UserCacheRequest<T>(this object a, object? payload = null, HttpMethod? method = null, string? requestUri = null)
     {
         return a.App().UserClient.CacheRequest<T>(payload, method, requestUri);
     }

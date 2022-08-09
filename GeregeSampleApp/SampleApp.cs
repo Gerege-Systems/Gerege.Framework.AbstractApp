@@ -71,7 +71,7 @@ public class SampleApp : GeregeWPFApp
     /// <summary>
     /// Gerege үзэгдэл хүлээн авагч.
     /// </summary>
-    public dynamic? BaseEventHandler(string @event, dynamic? param = null)
+    public dynamic? BaseEventHandler(string @event, object? param = null)
     {
         return @event switch
         {

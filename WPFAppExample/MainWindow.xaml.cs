@@ -34,7 +34,7 @@ public partial class MainWindow : Window
     /// <returns>
     /// Үзэгдэл хүлээн авагчтай бол боловсруулсан үр дүнг dynamic төрлөөр буцаана, үгүй бол null утга буцна.
     /// </returns>
-    public dynamic? GeregEventHandler(string @event, dynamic? param = null)
+    public dynamic? GeregEventHandler(string @event, object? param = null)
     {
         Debug.WriteLine("Gerege үзэгдэл дуудагдаж байна => " + @event);
 
@@ -88,7 +88,7 @@ public partial class MainWindow : Window
     /// Модулиас уншсан Page рүү шилжих.
     /// </summary>
     /// <param name="param">Page обьект.</param>
-    public dynamic? OnLoadPage(dynamic param)
+    public dynamic? OnLoadPage(object? param)
     {
         try
         {

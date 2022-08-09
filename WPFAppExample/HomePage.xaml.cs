@@ -22,7 +22,7 @@ public partial class HomePage : Page
 
     public struct Welcome
     {
-        public static int GeregeMessage() => 101;
+        public int GeregeMessage() => 101;
 
         [JsonProperty("title", Required = Required.Always)]
         public string Title { get; set; }
