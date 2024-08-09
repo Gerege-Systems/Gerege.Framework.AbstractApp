@@ -71,12 +71,13 @@ public class SampleApp : GeregeWPFApp
     /// <summary>
     /// Gerege үзэгдэл хүлээн авагч.
     /// </summary>
-    public dynamic? BaseEventHandler(string @event, object? param = null)
+    public object? BaseEventHandler(string @event, object? param = null)
     {
         return @event switch
         {
-            "get-server-address" => "http://mock-server/api",
-            _ => null,
+            "get-token-server-address" => "http://mock-server/user/login",
+
+            _ => null
         };
     }
 
@@ -88,27 +89,20 @@ public class SampleApp : GeregeWPFApp
     /// <returns>
     /// Амжилттай үр дүн.
     /// </returns>
-    public object? ModuleStart(string filePath, dynamic param)
+    public object? ModuleStart(string filePath, object param)
     {
         if (string.IsNullOrEmpty(filePath)
-                || !File.Exists(filePath))
-            throw new(filePath + ": Модул зам олдсонгүй!");
+            || !File.Exists(filePath))
+            throw new Exception($"{filePath}: Модул зам олдсонгүй!");
 
         string dllName = Path.GetFileName(filePath);
-
         Assembly assembly = Assembly.LoadFrom(filePath);
-        Type? type = assembly.GetType("Module");
-        if (type is null) throw new(dllName + ": Module class олдсонгүй!");
-
-        object? instanceOfMyType = Activator.CreateInstance(type);
-        if (instanceOfMyType is null) throw new(dllName + ": Module обьект үүсгэж чадсангүй!");
-
-        MethodInfo? methodInfo = type.GetMethod("Start", new Type[] { typeof(object) });
-        if (methodInfo is null) throw new(dllName + ": Module.Start функц олдоогүй эсвэл буруу тодорхойлсон байна!");
-
+        Type? type = assembly.GetType("Module") ?? throw new Exception($"{dllName}: Module class олдсонгүй!");
+        object? instanceOfMyType = Activator.CreateInstance(type) ?? throw new Exception($"{dllName}: Модул зам олдсонгүй!");
+        MethodInfo? methodInfo = type.GetMethod("Start", [typeof(object)]) ?? throw new Exception($"{dllName}: Module.Start функц олдоогүй эсвэл буруу тодорхойлсон байна!");
         try
         {
-            object[] parameters = new object[1] { param };
+            object[] parameters = [param];
             return methodInfo.Invoke(instanceOfMyType, parameters);
         }
         catch (Exception ex)
@@ -128,7 +122,7 @@ public class SampleApp : GeregeWPFApp
     /// </summary>
     private void ClearCacheFolder()
     {
-        var tempCache = new GeregeCache(0, new { tmp = 0 });
+        var tempCache = new GeregeCache(new{ });
         if (string.IsNullOrEmpty(tempCache.FilePath)) return;
 
         var cacheFI = new FileInfo(tempCache.FilePath);

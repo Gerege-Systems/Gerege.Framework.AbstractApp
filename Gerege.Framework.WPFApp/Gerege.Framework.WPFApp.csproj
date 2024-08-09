@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <LangVersion>10.0</LangVersion>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <LangVersion>12</LangVersion>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>gerege-win.ico</ApplicationIcon>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <Version>6.1.0</Version>
+    <Version>8.0.0</Version>
     <Authors>Гэрэгэ Системс ХХК</Authors>
     <Description>Gerege Application Development Framework - Windows Presentation Foundation Application library</Description>
     <Copyright>Gerege Systems LLC</Copyright>
@@ -17,6 +17,7 @@
     <PackageTags>gerege;wpf;windows;application</PackageTags>
     <NeutralLanguage>mn-MN</NeutralLanguage>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>

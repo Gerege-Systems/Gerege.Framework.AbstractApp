@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net.Http;
 using System.Collections.Generic;
 using System.Threading;
 using System.Diagnostics;
@@ -8,7 +9,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 using GeregeSampleApp;
 
 /////// date: 2022.02.09 //////////
@@ -19,21 +21,23 @@ namespace GeregeSampleModule.PartnerPage;
 
 public class Partner
 {
-    [JsonProperty("name", Required = Required.Always)]
+    [JsonPropertyName("name")]
+    [JsonRequired]
     public string Name { get; set; }
 
-    [JsonProperty("logo", Required = Required.Always)]
+    [JsonPropertyName("logo")]
+    [JsonRequired]
     public string Logo { get; set; }
 
-    [JsonProperty("href", Required = Required.Always)]
+    [JsonPropertyName("href")]
+    [JsonRequired]
     public string WebAddress { get; set; }
 }
 
 public class PartnerList
 {
-    public virtual int GeregeMessage() => 102;
-
-    [JsonProperty("partners", Required = Required.Always)]
+    [JsonPropertyName("partners")]
+    [JsonRequired]
     public List<Partner> Data { get; set; }
 }
 
@@ -69,7 +73,7 @@ public partial class PartnerControl : UserControl
 
         try
         {
-            var list = this.UserRequest<PartnerList>();
+            var list = this.UserCacheRequest<PartnerList>("http://mock-server/get/partners", HttpMethod.Get);
             TitleBox.Text = "Successfully retrieved partners list.";
 
             foreach (Partner partner in list.Data)
@@ -113,7 +117,7 @@ public partial class PartnerControl : UserControl
         {
             TitleBox.Text = ex.Message;
 
-            Debug.WriteLine("Error on fetching data -> " + ex);
+            Debug.WriteLine($"Error on fetching data -> {ex.Message}");
         }
     }
 

@@ -16,7 +16,7 @@ namespace Gerege.Framework.WPFApp;
 /// <summary>
 /// Гэрэгэ логикоор ажиллах програм хангамжын үндсэн суурь апп хийсвэр класс.
 /// </summary>
-public abstract class GeregeWPFApp : Application
+public abstract partial class GeregeWPFApp : Application
 {
     /// <summary>Апп процесс оршиж/ажиллаж буй хавтас зам.</summary>
     public string CurrentDirectory;
@@ -25,7 +25,7 @@ public abstract class GeregeWPFApp : Application
     /// <param name="name">Гэрэгэ үзэгдэл нэр.</param>
     /// <param name="args">Үзэгдэлд дамжуулах өгөгдөл параметр.</param>
     /// <returns>Үзэгдэл хүлээн авагчаас үр дүн эсвэл null буцаана.</returns>
-    public delegate dynamic? GeregeEventHandler(string name, object? args = null);
+    public delegate object? GeregeEventHandler(string name, object? args = null);
 
     /// <summary>Gerege үзэгдэл хүлээн авагч.</summary>
     public event GeregeEventHandler EventHandler;
@@ -37,8 +37,7 @@ public abstract class GeregeWPFApp : Application
         DirectoryInfo? currentDir = null;
         if (Environment.ProcessPath != null)
             currentDir = Directory.GetParent(Environment.ProcessPath);
-        if (currentDir == null)
-            currentDir = new DirectoryInfo(Environment.CurrentDirectory);
+        currentDir ??= new DirectoryInfo(Environment.CurrentDirectory);
         CurrentDirectory = currentDir.FullName + Path.DirectorySeparatorChar;
     }
 
@@ -46,11 +45,11 @@ public abstract class GeregeWPFApp : Application
     /// <param name="name">Идэвхжүүлэх үзэгдэл нэр.</param>
     /// <param name="args">Үзэгдэлд дамжуулагдах өгөгдөл.</param>
     /// <returns>
-    /// Үзэгдэл хүлээн авагчаас үр дүн ирвэл dynamic төрлөөр буцаана.
+    /// Үзэгдэл хүлээн авагчаас үр дүн ирвэл object төрлөөр буцаана.
     /// Ямар нэгэн алдаа гарч Exception үүссэн бол үзэгдлийн үр дүнд алдааны мэдээллийг олгоно.
     /// <para>Үзэгдэл хүлээн авагчаас үр дүн null байх боломжтой.</para>
     /// </returns>
-    public virtual dynamic? RaiseEvent(string name, object? args = null)
+    public virtual object? RaiseEvent(string name, object? args = null)
     {
         // боломжит үзэгдэл хүлээн авагчдийг цуглуулж байна
         Delegate[]? delegates = EventHandler?.GetInvocationList();
@@ -59,7 +58,7 @@ public abstract class GeregeWPFApp : Application
         if (delegates is null) return null;
 
         // хүлээн авагчидаас боловсруулсан үр дүнг энэ жагсаалтад бүртгэе
-        var results = new List<dynamic?>();
+        List<object?> results = [];
 
         // үзэгдэл хүлээн авагч бүрийг ажиллуулж байна
         foreach (Delegate d in delegates)
@@ -173,16 +172,16 @@ public abstract class GeregeWPFApp : Application
         base.OnExit(e);
     }
 
-    [DllImport("user32.dll")]
+    [LibraryImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
-    static extern bool IsIconic(IntPtr hWnd);
+    private static partial bool IsIconic(IntPtr hWnd);
 
-    [DllImport("user32.dll")]
-    private static extern int ShowWindow(IntPtr hWnd, uint Msg);
+    [LibraryImport("user32.dll")]
+    private static partial int ShowWindow(IntPtr hWnd, uint Msg);
 
     private const int SW_SHOWNOACTIVATE = 4;
 
-    [DllImport("user32.dll")]
+    [LibraryImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
-    static extern bool SetForegroundWindow(IntPtr hWnd);
+    private static partial bool SetForegroundWindow(IntPtr hWnd);
 }

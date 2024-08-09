@@ -2,9 +2,11 @@
 using System.Threading;
 using System.Diagnostics;
 using System.Reflection;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 using GeregeSampleApp;
 
 /////// date: 2022.02.09 //////////
@@ -22,9 +24,8 @@ public partial class HomePage : Page
 
     public struct Welcome
     {
-        public int GeregeMessage() => 101;
-
-        [JsonProperty("title", Required = Required.Always)]
+        [JsonPropertyName("title")]
+        [JsonRequired]
         public string Title { get; set; }
     }
 
@@ -50,7 +51,7 @@ public partial class HomePage : Page
 
         try
         {
-            Welcome t = this.UserCacheRequest<Welcome>();
+            Welcome t = this.UserCacheRequest<Welcome>("http://mock-server/get/title", HttpMethod.Get);
             TitleBox.Text = t.Title;
         }
         catch (Exception ex)
@@ -59,7 +60,7 @@ public partial class HomePage : Page
 
             string logMsg = "Welcome-ийг авах үед алдаа гарлаа";
             Log4Net.Error(logMsg, ex);
-            Debug.WriteLine(logMsg + " -> " + ex.Message);
+            Debug.WriteLine($"{logMsg} -> {ex.Message}");
         }
         finally
         {
@@ -84,7 +85,7 @@ public partial class HomePage : Page
 
             string logMsg = "Sample Module-ийг ачаалах үед алдаа гарлаа";
             Log4Net.Error(logMsg, ex);
-            Debug.WriteLine(logMsg + " -> " + ex.Message);
+            Debug.WriteLine($"{logMsg} -> {ex.Message}");
         }
     }
 }

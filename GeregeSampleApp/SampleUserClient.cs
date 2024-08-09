@@ -1,4 +1,7 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
+using System.Text.Json;
+
 using Gerege.Framework.HttpClient;
 
 /////// date: 2022.02.09 //////////
@@ -11,31 +14,21 @@ namespace GeregeSampleApp;
 public class SampleUserClient : GeregeClient
 {
     /// <inheritdoc />
-    public class SampleToken : GeregeToken
-    {
-        /// <summary>
-        /// Гэрэгэ токен авах мсж дугаар.
-        /// </summary>
-        public virtual int GeregeMessage() => 1;
-    }
-
-    /// <inheritdoc />
     public SampleUserClient(HttpMessageHandler handler) : base(handler)
     {
-        BaseAddress = new(this.AppRaiseEvent("get-server-address"));
+//        BaseAddress = new Uri((string)this.AppRaiseEvent("get-server-address")!);
     }
 
     /// <summary>
-    /// Терминал нэвтрэх.
+    /// Хэрэглэгч нэвтрэх.
     /// </summary>
     /// <param name="payload">Нэвтрэх мэдээлэл.</param>
     public void Login(object payload)
     {
         GeregeToken? token = FetchToken(payload);
 
-        if (token is null
-            || string.IsNullOrEmpty(token.Value))
-            throw new("Invalid token data!");
+        if (token is null || !token.IsValid)
+            throw new Exception("Invalid token data!");
 
         this.AppRaiseEvent("client-login");
     }
@@ -46,19 +39,25 @@ public class SampleUserClient : GeregeClient
     /// <inheritdoc />
     protected override GeregeToken? FetchToken(object? payload = null)
     {
-        if (payload is not null)
+        if (payload != null)
             fetchTokenPayload = payload;
 
-        if (currentToken is not null
+        if (currentToken != null
             && currentToken.IsExpiring)
         {
             currentToken = null;
             payload = fetchTokenPayload;
         }
 
-        if (payload is not null)
-            currentToken = Request<SampleToken>(payload);
-
+        if (payload != null)
+        {
+            JsonElement token = Request<JsonElement>(payload, HttpMethod.Post, Convert.ToString(this.AppRaiseEvent("get-token-server-address")));
+            if (token.TryGetProperty("token", out JsonElement tokenValue))
+            {
+                currentToken = new GeregeToken();
+                currentToken.Update(tokenValue.ToString());
+            }
+        }
         return currentToken;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+
 using GeregeSampleModule.PartnerPage;
 
 /////// date: 2022.02.09 //////////
@@ -26,10 +27,10 @@ public class Module
     /// <returns>
     /// Гэрэгийн томоохон харилцагчдын мэдээлэл агуулах хуудас.
     /// </returns>
-    public object? Start(dynamic param)
+    public object? Start(object param)
     {
-        string log = Convert.ToString(param);
-        Debug.WriteLine("Module.Start param -> " + log);
+        string? log = Convert.ToString(param);
+        Debug.WriteLine($"Module.Start param -> {log}");
 
         return new PartnerControl();
     }
